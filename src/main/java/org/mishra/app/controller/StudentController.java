@@ -2,6 +2,8 @@ package org.mishra.app.controller;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.mishra.app.model.Student;
 import org.mishra.app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sun.istack.NotNull;
+
 @Controller
 @RestController
 @RequestMapping("/student")
@@ -23,7 +27,7 @@ public class StudentController {
 	private StudentService service;
 	
 	@PostMapping("/create")
-	 public String addStudent(@RequestBody Student stud) {
+	 public String addStudent(@NotNull @RequestBody Student stud) {
 		service.addStudent(stud);
 		 return "sucessfully registerd ";
 	 }
@@ -39,7 +43,7 @@ public class StudentController {
 		return "Update Successfully id : " +id;
 	}
 	@DeleteMapping("/delete/{id}")
-	public String deleteStudentById(@PathVariable long id) {
+	public String deleteStudentById(@NotEmpty(message="id may not be empaty") @PathVariable long id) {
 		service.deleteStudentById(id);
 		return "Deleted Successfully id :  " +id;
 	}
